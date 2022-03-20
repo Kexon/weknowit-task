@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TestPage from './TestPage';
 import CityPage from './CityPage';
+import PopulationPage from './PopulationPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ const App = () => (
       />
       <Stack.Screen name="Test" component={TestPage} />
       <Stack.Screen name="City" component={CityPage} />
+      <Stack.Screen name="Population" component={PopulationPage} />
       </Stack.Navigator>
     </NavigationContainer>
 );

@@ -1,5 +1,6 @@
 import React, { useState }  from 'react';
-import { StyleSheet, Button, View, SafeAreaView, Text, TextInput } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, TextInput, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-web';
 
 const CityPage = ({ navigation }) => {
     const [text, onChangeText] = useState('');
@@ -7,7 +8,7 @@ const CityPage = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
         <View>
             <Text style={styles.title}>
-            Search By City
+            SEARCH BY CITY
             </Text>
         </View>
             
@@ -15,9 +16,14 @@ const CityPage = ({ navigation }) => {
         style={styles.input}
         placeholder="Enter a city"
         onChangeText={newText => onChangeText(newText)}
-        defaultValue={text}
-            />
+                defaultValue={text} />
             
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Population', { name: text})}>
+                <Image                 source={require('./search.png')}
+                style={{ width: 60, height: 60, justifyContent: 'center' }}/>
+                </TouchableOpacity>
+
         <Text style={styles.title}>
             {text}
         </Text>
@@ -37,7 +43,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 16,
+      marginHorizontal: 16,
+    alignItems: 'center'
   },
   title: {
     textAlign: 'center',
