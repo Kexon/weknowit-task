@@ -16,7 +16,7 @@ const CitySearchScene = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        City Pop
+        CityPop
       </Text>
       <Button
         title="SEARCH BY CITY"

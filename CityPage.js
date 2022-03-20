@@ -1,6 +1,5 @@
 import React, { useState }  from 'react';
-import { StyleSheet, Button, View, SafeAreaView, Text, TextInput, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-web';
+import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 
 const CityPage = ({ navigation }) => {
     const [text, onChangeText] = useState('');

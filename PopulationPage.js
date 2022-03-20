@@ -1,12 +1,12 @@
 import React, { useEffect, useState }  from 'react';
-import { StyleSheet, FlatList, View, SafeAreaView, Text, TextInput } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 const PopulationPage = ({ navigation, route }) => {
   const city = route.params.name;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  console.log(data);
   console.log(city);
+  console.log(data);
 
   useEffect(() => {
     fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
@@ -47,10 +47,10 @@ const PopulationPage = ({ navigation, route }) => {
   */
   
   
-    return (
-        <SafeAreaView style={styles.container}>
+  return (
+    <SafeAreaView style={styles.container}>
         <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <Text>Loading...</Text> : 
+      {isLoading ? <Text style={styles.title}>Loading...</Text> : 
             (<View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
               <Text style={styles.title}>{data.data.city}</Text>    
               <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.data.country}</Text>
@@ -63,6 +63,7 @@ const PopulationPage = ({ navigation, route }) => {
         <Text style={styles.title}>
         </Text>
         </SafeAreaView>
+        
     );
 }
 
