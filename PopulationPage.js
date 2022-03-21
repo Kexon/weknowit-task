@@ -2,16 +2,16 @@ import React, { useEffect, useState }  from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 const PopulationPage = ({ navigation, route }) => {
+  const data = route.params;
+  /*
   const city = route.params.name;
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  console.log(city);
-  console.log(data);
-
   useEffect(() => {
     fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
       method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -24,7 +24,7 @@ const PopulationPage = ({ navigation, route }) => {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
     }, []);
-    
+    */
   
     /*
     const [isLoading, setLoading] = useState(true);
@@ -45,9 +45,10 @@ const PopulationPage = ({ navigation, route }) => {
         .finally(() => setLoading(false));
     }, []);
   */
-  
+  //console.log(dataParam);
   
   return (
+    /*
     <SafeAreaView style={styles.container}>
         <View style={{ flex: 1, padding: 24 }}>
       {isLoading ? <Text style={styles.title}>Loading...</Text> : 
@@ -60,10 +61,15 @@ const PopulationPage = ({ navigation, route }) => {
         </View>
       )}
     </View>
-        <Text style={styles.title}>
-        </Text>
         </SafeAreaView>
-        
+        */
+        <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>{data.data.city}</Text>    
+              <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.data.country}</Text>
+              <Text style={styles.normal}>POPULATION</Text>
+              <Text style={styles.normal}>{data.data.populationCounts[0].value}</Text>
+              </SafeAreaView>
+
     );
 }
 
