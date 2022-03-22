@@ -48,26 +48,11 @@ const PopulationPage = ({ navigation, route }) => {
   //console.log(dataParam);
   
   return (
-    /*
-    <SafeAreaView style={styles.container}>
-        <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <Text style={styles.title}>Loading...</Text> : 
-            (<View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
-              <Text style={styles.title}>{data.data.city}</Text>    
-              <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.data.country}</Text>
-              <Text style={styles.normal}>POPULATION</Text>
-              <Text style={styles.normal}>{data.data.populationCounts[0].value}</Text>
-            
-        </View>
-      )}
-    </View>
-        </SafeAreaView>
-        */
         <SafeAreaView style={styles.container}>
         <Text style={styles.title}>{data.data.city}</Text>    
               <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.data.country}</Text>
               <Text style={styles.normal}>POPULATION</Text>
-              <Text style={styles.normal}>{data.data.populationCounts[0].value}</Text>
+              <Text style={styles.normal}>{Math.round(data.data.populationCounts[0].value)}</Text>
               </SafeAreaView>
 
     );
