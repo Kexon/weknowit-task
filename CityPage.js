@@ -7,6 +7,7 @@ const CityPage = ({ navigation }) => {
 
   const [cityVar, setCity] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
   console.log('called');
   useEffect(() => {
     console.log(cityVar);
@@ -14,6 +15,7 @@ const CityPage = ({ navigation }) => {
       return;
     async function fetchData()
     {
+      setLoading(true);
       let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
         method: 'POST',
         headers: {
@@ -24,7 +26,7 @@ const CityPage = ({ navigation }) => {
           city: cityVar.text
         
         })
-      });
+      }).finally(() => setLoading(false));
       let json = await response.json();
       if (response.ok)
         navigation.navigate('Population', json);
@@ -54,9 +56,7 @@ const CityPage = ({ navigation }) => {
                 <Image                 source={require('./search.png')}
                 style={{ width: 60, height: 60, justifyContent: 'center' }}/>
       </TouchableOpacity>
-      <Text style={styles.error}>
-            {errorMessage}
-            </Text>
+      {isLoading ? <Text>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
         </SafeAreaView>
     );
     
@@ -69,6 +69,8 @@ function ShowMessage(errorMessage) {
     </Text>
   );
 }
+
+/*
 function ButtonAction(navigation) {
   const [cityVar, setCity] = useState('');
   useEffect(() => {
@@ -98,8 +100,8 @@ function ButtonAction(navigation) {
     fetchData();
   }, [cityVar]);
 
-
   return setCity;
+  */
         /*
   const [cityParam, setCity] = useState('');
   const [isLoading, setLoading] = useState(true);
@@ -134,8 +136,8 @@ function ButtonAction(navigation) {
       navigation.navigate('Population', data);
   }, [isLoading]);
   return setCity;
-  */
 }
+*/
 
 
 const styles = StyleSheet.create({
