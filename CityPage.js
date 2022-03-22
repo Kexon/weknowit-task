@@ -3,39 +3,13 @@ import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacit
 
 const CityPage = ({ navigation }) => {
   const [text, onChangeText] = useState('');
-  const setCity = ButtonAction(navigation);
-  return (
-        <SafeAreaView style={styles.container}>
-        <View>
-            <Text style={styles.title}>
-            SEARCH BY CITY
-            </Text>
-        </View>
-            
-        <TextInput
-        style={styles.input}
-        placeholder="Enter a city"
-        onChangeText={newText => onChangeText(newText)}
-                defaultValue={text} />
-            
-            <TouchableOpacity
-            onPress={() => setCity({text}) }>
-                <Image                 source={require('./search.png')}
-                style={{ width: 60, height: 60, justifyContent: 'center' }}/>
-                </TouchableOpacity>
+  //const setCity = ButtonAction(navigation);
 
-        <Text style={styles.title}>
-            {text}
-      </Text>
-        </SafeAreaView>
-    );
-    
-}
-  
-function ButtonAction(navigation) {
   const [cityVar, setCity] = useState('');
-  console.log(cityVar);
+  const [errorMessage, setErrorMessage] = useState('');
+  console.log('called');
   useEffect(() => {
+    console.log(cityVar);
     if (!cityVar)
       return;
     async function fetchData()
@@ -52,11 +26,79 @@ function ButtonAction(navigation) {
         })
       });
       let json = await response.json();
-      navigation.navigate('Population', json);
+      if (response.ok)
+        navigation.navigate('Population', json);
+      else
+        setErrorMessage('Could not find city');
       return json.data;
     }
     fetchData();
   }, [cityVar]);
+
+  return (
+        <SafeAreaView style={styles.container}>
+        <View>
+            <Text style={styles.title}>
+            SEARCH BY CITY
+            </Text>
+        </View>
+            
+        <TextInput
+        style={styles.input}
+        placeholder="Enter a city"
+        onChangeText={newText => { onChangeText(newText); setErrorMessage(''); }}
+                defaultValue={text} />
+            
+            <TouchableOpacity
+            onPress={() => setCity({text}) }>
+                <Image                 source={require('./search.png')}
+                style={{ width: 60, height: 60, justifyContent: 'center' }}/>
+      </TouchableOpacity>
+      <Text style={styles.error}>
+            {errorMessage}
+            </Text>
+        </SafeAreaView>
+    );
+    
+}
+
+function ShowMessage(errorMessage) {
+  return (
+    <Text style={styles.title}>
+      {errorMessage.text}
+    </Text>
+  );
+}
+function ButtonAction(navigation) {
+  const [cityVar, setCity] = useState('');
+  useEffect(() => {
+    console.log(cityVar);
+    if (!cityVar)
+      return;
+    async function fetchData()
+    {
+      let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          city: cityVar.text
+        
+        })
+      });
+      let json = await response.json();
+      if (json > 0)
+        navigation.navigate('Population', json);
+      else
+        ShowMessage('Could not find city')
+      return json.data;
+    }
+    fetchData();
+  }, [cityVar]);
+
+
   return setCity;
         /*
   const [cityParam, setCity] = useState('');
@@ -129,6 +171,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
+  error: {
+    textAlign: 'center',
+    fontSize: 15,
+    marginVertical: 8,
+    color: 'red'
+  }
 });
 
 export default CityPage;
