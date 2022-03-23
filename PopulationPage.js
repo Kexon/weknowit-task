@@ -49,10 +49,10 @@ const PopulationPage = ({ navigation, route }) => {
   
   return (
         <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>{data.data.city}</Text>    
-              <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.data.country}</Text>
+        <Text style={styles.title}>{data.city}</Text>    
+              <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.country}</Text>
               <Text style={styles.normal}>POPULATION</Text>
-              <Text style={styles.normal}>{Math.round(data.data.populationCounts[0].value)}</Text>
+              <Text style={styles.normal}>{Math.round(data.populationCounts[0].value)}</Text>
               </SafeAreaView>
 
     );

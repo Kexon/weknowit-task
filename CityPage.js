@@ -15,6 +15,7 @@ const CityPage = ({ navigation }) => {
       return;
     async function fetchData()
     {
+
       setLoading(true);
       let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
         method: 'POST',
@@ -28,8 +29,9 @@ const CityPage = ({ navigation }) => {
         })
       }).finally(() => setLoading(false));
       let json = await response.json();
+      console.log(json);
       if (response.ok)
-        navigation.navigate('Population', json);
+        navigation.navigate('Population', json.data);
       else
         setErrorMessage('Could not find city');
       return json.data;
