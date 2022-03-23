@@ -46,7 +46,8 @@ const CityPage = ({ navigation }) => {
           CITY
             </Text>
         </View>
-        <View style={{flex:2}}>
+      <View style={{ flex: 2 }}>
+      {isLoading ? <Text style={{alignSelf:'center'}}>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
         <TextInput
           style={styles.input}
           placeholder="Enter a city"
@@ -59,7 +60,6 @@ const CityPage = ({ navigation }) => {
           <Image                 source={require('./search.png')}
             style={{ width: 60, height: 60, alignSelf: 'center',}}/>
         </TouchableOpacity>
-        {isLoading ? <Text>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
             </View>
         </SafeAreaView>
     );

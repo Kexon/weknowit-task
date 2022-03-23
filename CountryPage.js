@@ -15,7 +15,8 @@ const CountryPage = ({ navigation }) => {
       return;
     async function fetchData()
     {
-
+      if (!cityVar)
+        return;
       setLoading(true);
       let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities/filter', {
         method: 'POST',
@@ -47,6 +48,7 @@ const CountryPage = ({ navigation }) => {
             </Text>
         </View>
       <View style={{flex:2}}>
+        {isLoading ? <Text style={{alignSelf:'center'}}>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
         <TextInput
         style={styles.input}
         placeholder="Enter a country"
@@ -59,7 +61,6 @@ const CountryPage = ({ navigation }) => {
           <Image                 source={require('./search.png')}
             style={{ width: 60, height: 60, alignSelf: 'center',}}/>
         </TouchableOpacity>
-      {isLoading ? <Text>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
         </View>
         </SafeAreaView>
     );
