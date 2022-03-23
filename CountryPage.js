@@ -24,9 +24,9 @@ const CountryPage = ({ navigation }) => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          country: cityVar.text,
-          limit: '10',
-          orderBy: "population"
+          limit: 11,
+          order: 'dsc',
+          country: cityVar.text
         })
       }).finally(() => setLoading(false));
       let json = await response.json();
