@@ -41,12 +41,12 @@ const CountryPage = ({ navigation }) => {
 
   return (
         <SafeAreaView style={styles.container}>
-        <View>
+        <View style={{flex: 1}}>
             <Text style={styles.title}>
-            SEARCH BY COUNTRY
+          SEARCH BY{'\n'}COUNTRY
             </Text>
         </View>
-            
+      <View style={{flex:2}}>
         <TextInput
         style={styles.input}
         placeholder="Enter a country"
@@ -54,11 +54,13 @@ const CountryPage = ({ navigation }) => {
                 defaultValue={text} />
             
             <TouchableOpacity
-            onPress={() => setCity({text}) }>
-                <Image                 source={require('./search.png')}
-                style={{ width: 60, height: 60, justifyContent: 'center' }}/>
-      </TouchableOpacity>
+        style = {{width: 70, borderRadius: 60, borderWidth: 2, alignSelf: 'center'}}
+        onPress={() => setCity({text}) }>
+          <Image                 source={require('./search.png')}
+            style={{ width: 60, height: 60, alignSelf: 'center',}}/>
+        </TouchableOpacity>
       {isLoading ? <Text>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
+        </View>
         </SafeAreaView>
     );
     
@@ -66,38 +68,29 @@ const CountryPage = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-        textAlign: 'center'
-    }, 
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-      marginHorizontal: 16,
-    alignItems: 'center'
-  },
+  input: {
+    height: 60,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+textAlign: 'center',
+fontSize: 20
+}, 
+container: {
+  flex: 1,
+  justifyContent: 'center',
+    marginHorizontal: 16,
+},
   title: {
     textAlign: 'center',
     fontSize: 30,
     fontWeight: "bold",
-    marginVertical: 8,
+    marginVertical: 80,
   },
   normal: {
     textAlign: 'center',
     marginVertical: 8,
-  },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },  error: {
+  }, error: {
     textAlign: 'center',
     fontSize: 15,
     marginVertical: 8,

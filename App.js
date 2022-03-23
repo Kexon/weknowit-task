@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert } from 'react-native';
+import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TestPage from './TestPage';
@@ -10,26 +10,24 @@ import CitiesPage from './CitiesPage';
 
 const Stack = createNativeStackNavigator();
 
-const Separator = () => (
-  <View style={styles.separator} />
-);
-
 const CitySearchScene = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <View style={{flex: 2, justifyContent: 'center'}}>
       <Text style={styles.title}>
         CityPop
       </Text>
-      <Button
-        title="SEARCH BY CITY"
+      </View>
+      <View style={{flex:3}}>
+      <TouchableOpacity
+        style = {styles.button}
         onPress={() => navigation.navigate('City')
-        }
-      />
-        <Button
-        title="SEARCH BY COUNTRY"
+        }><Text style={styles.buttonText}>SEARCH BY CITY</Text></TouchableOpacity>
+      <TouchableOpacity
+        style = {styles.button}
         onPress={() => navigation.navigate('Country')
-        }
-      />
+        }><Text style={styles.buttonText}>SEARCH BY COUNTRY</Text></TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -55,13 +53,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 16,
+    marginHorizontal: 5,
+    
   },
   title: {
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
-    marginVertical: 8,
+    marginVertical: 0,
   },
   normal: {
     textAlign: 'center',
@@ -71,11 +70,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+  button: {
+    justifyContent: 'center',
+    borderColor: 'black',
+    borderWidth: 3,
+    height: 80,
+    marginTop :10
+  }, buttonText: {
+    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: 'bold'
+  }
 });
 
 export default App;
