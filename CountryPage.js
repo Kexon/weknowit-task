@@ -1,10 +1,45 @@
-import React, { useState }  from 'react';
-import { StyleSheet, Button, View, SafeAreaView, Text, TextInput, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-web';
+import React, { useState, useEffect }  from 'react';
+import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacity} from 'react-native';
 
 const CountryPage = ({ navigation }) => {
-    const [text, onChangeText] = useState('');
-    return (
+  const [text, onChangeText] = useState('');
+  //const setCity = ButtonAction(navigation);
+
+  const [cityVar, setCity] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  console.log('called');
+  useEffect(() => {
+    console.log(cityVar);
+    if (!cityVar)
+      return;
+    async function fetchData()
+    {
+
+      setLoading(true);
+      let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities/filter', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          country: cityVar.text,
+          limit: '10',
+          orderBy: "population"
+        })
+      }).finally(() => setLoading(false));
+      let json = await response.json();
+      if (response.ok)
+        navigation.navigate('Cities', json);
+      else
+        setErrorMessage('Could not find country');
+      return json.data;
+    }
+    fetchData();
+  }, [cityVar]);
+
+  return (
         <SafeAreaView style={styles.container}>
         <View>
             <Text style={styles.title}>
@@ -15,20 +50,18 @@ const CountryPage = ({ navigation }) => {
         <TextInput
         style={styles.input}
         placeholder="Enter a country"
-        onChangeText={newText => onChangeText(newText)}
+        onChangeText={newText => { onChangeText(newText); setErrorMessage(''); }}
                 defaultValue={text} />
             
             <TouchableOpacity
-                onPress={() => navigation.navigate('Population', { name: text})}>
-                <Image source={require('./search.png')}
+            onPress={() => setCity({text}) }>
+                <Image                 source={require('./search.png')}
                 style={{ width: 60, height: 60, justifyContent: 'center' }}/>
-                </TouchableOpacity>
-
-        <Text style={styles.title}>
-            {text}
-        </Text>
+      </TouchableOpacity>
+      {isLoading ? <Text>Loading...</Text> : <Text style={styles.error}>{errorMessage}</Text>}
         </SafeAreaView>
     );
+    
 }
 
 
@@ -64,7 +97,12 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderBottomColor: '#737373',
     borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+  },  error: {
+    textAlign: 'center',
+    fontSize: 15,
+    marginVertical: 8,
+    color: 'red'
+  }
 });
 
 export default CountryPage;
