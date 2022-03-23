@@ -3,41 +3,40 @@ import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacit
 
 const CountryPage = ({ navigation }) => {
   const [text, onChangeText] = useState('');
-  //const setCity = ButtonAction(navigation);
-
   const [cityVar, setCity] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
-  console.log('called');
   useEffect(() => {
     console.log(cityVar);
-    if (!cityVar)
+    if (!cityVar) {
+      setErrorMessage('Please enter a country');
+      console.log('No input!');
       return;
-    async function fetchData()
-    {
-      if (!cityVar)
-        return;
-      setLoading(true);
-      let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities/filter', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          limit: 11,
-          order: 'dsc',
-          country: cityVar.text
-        })
-      }).finally(() => setLoading(false));
-      let json = await response.json();
-      if (response.ok)
-        navigation.navigate('Cities', json);
-      else
-        setErrorMessage('Could not find country');
-      return json.data;
+    } else {
+      console.log('fetching data...');
+      async function fetchData() {
+        setLoading(true);
+        let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities/filter', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            limit: 11,
+            order: 'dsc',
+            country: cityVar.text
+          })
+        }).finally(() => setLoading(false));
+        let json = await response.json();
+        if (response.ok)
+          navigation.navigate('Cities', json);
+        else
+          setErrorMessage('Could not find country');
+        return json.data;
+      }
+      fetchData();
     }
-    fetchData();
   }, [cityVar]);
 
   return (
@@ -56,7 +55,7 @@ const CountryPage = ({ navigation }) => {
                 defaultValue={text} />
             
             <TouchableOpacity
-        style = {{width: 70, borderRadius: 60, borderWidth: 2, alignSelf: 'center'}}
+        style = {styles.button}
         onPress={() => setCity({text}) }>
           <Image                 source={require('./search.png')}
             style={{ width: 60, height: 60, alignSelf: 'center',}}/>
@@ -96,6 +95,11 @@ container: {
     fontSize: 15,
     marginVertical: 8,
     color: 'red'
+  }, button: {
+    width: 70,
+    borderRadius: 60,
+    borderWidth: 2,
+    alignSelf: 'center'
   }
 });
 
