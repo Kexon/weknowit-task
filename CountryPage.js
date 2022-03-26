@@ -3,15 +3,15 @@ import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacit
 
 const CountryPage = ({ navigation }) => {
   const [text, onChangeText] = useState('');
-  const [cityVar, setCity] = useState('');
+  const [country, setCountry] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
   useEffect(() => {
-    if (cityVar.text == '') {
+    if (country.text == '') {
       setErrorMessage('Please enter a country');
       console.log('No input!');
       return;
-    }else if(cityVar){
+    }else if(country){
       console.log('fetching data...');
       async function fetchData() {
         setLoading(true);
@@ -24,7 +24,7 @@ const CountryPage = ({ navigation }) => {
           body: JSON.stringify({
             limit: 11,
             order: 'dsc',
-            country: cityVar.text
+            country: country.text
           })
         }).finally(() => setLoading(false));
         let json = await response.json();
@@ -36,7 +36,7 @@ const CountryPage = ({ navigation }) => {
       }
       fetchData();
     }
-  }, [cityVar]);
+  }, [country]);
 
   return (
         <SafeAreaView style={styles.container}>
@@ -55,7 +55,7 @@ const CountryPage = ({ navigation }) => {
             
             <TouchableOpacity
         style = {styles.button}
-          onPress={() => setCity({text})}>
+          onPress={() => setCountry({text})}>
           <Image                 source={require('./search.png')}
             style={{ width: 60, height: 60, alignSelf: 'center',}}/>
         </TouchableOpacity>
