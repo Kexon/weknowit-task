@@ -7,12 +7,11 @@ const CountryPage = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
   useEffect(() => {
-    console.log(cityVar);
-    if (!cityVar) {
+    if (cityVar.text == '') {
       setErrorMessage('Please enter a country');
       console.log('No input!');
       return;
-    } else {
+    }else if(cityVar){
       console.log('fetching data...');
       async function fetchData() {
         setLoading(true);
@@ -51,12 +50,12 @@ const CountryPage = ({ navigation }) => {
         <TextInput
         style={styles.input}
         placeholder="Enter a country"
-        onChangeText={newText => { onChangeText(newText); setErrorMessage(''); }}
+          onChangeText={newText => { onChangeText(newText); setErrorMessage('');}}
                 defaultValue={text} />
             
             <TouchableOpacity
         style = {styles.button}
-        onPress={() => setCity({text}) }>
+          onPress={() => setCity({text})}>
           <Image                 source={require('./search.png')}
             style={{ width: 60, height: 60, alignSelf: 'center',}}/>
         </TouchableOpacity>
