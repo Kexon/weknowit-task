@@ -2,11 +2,10 @@ import React from 'react';
 import { StyleSheet, Button, View, SafeAreaView, Text, Alert, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TestPage from './TestPage';
-import CityPage from './CityPage';
-import PopulationPage from './PopulationPage';
-import CountryPage from './CountryPage';
-import CitiesPage from './CitiesPage';
+import CityPage from './src/screens/CityPage';
+import PopulationPage from './src/screens/PopulationPage';
+import CountryPage from './src/screens/CountryPage';
+import CitiesPage from './src/screens/CitiesPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +39,6 @@ const App = () => (
           component={CitySearchScene}
           options={{ headerShown:false}}
       />
-      <Stack.Screen name="Test" component={TestPage} />
       <Stack.Screen name="City" component={CityPage} />
       <Stack.Screen name="Country" component={CountryPage} />
       <Stack.Screen name="Cities" component={CitiesPage} />

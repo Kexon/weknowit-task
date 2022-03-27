@@ -1,5 +1,7 @@
 import React, { useState, useEffect }  from 'react';
-import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import  {SEARCH}  from '../assets/images';
+
 
 const CountryPage = ({ navigation }) => {
   const [text, onChangeText] = useState('');
@@ -56,7 +58,7 @@ const CountryPage = ({ navigation }) => {
             <TouchableOpacity
         style = {styles.button}
           onPress={() => setCountry({text})}>
-          <Image                 source={require('./search.png')}
+          <Image                 source={SEARCH}
             style={{ width: 60, height: 60, alignSelf: 'center',}}/>
         </TouchableOpacity>
         </View>
