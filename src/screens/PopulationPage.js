@@ -1,7 +1,10 @@
 import React, { useEffect, useState }  from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import NumberFormat from 'react-number-format';
-
+/**
+ * This screen displays the population given in the parameters.
+ * react-number-format is used to show a correct format of the population
+ */
 const PopulationPage = ({ navigation, route }) => {
   const data = route.params;
 

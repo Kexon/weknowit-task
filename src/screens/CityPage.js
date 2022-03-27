@@ -1,21 +1,27 @@
 import React, { useState, useEffect }  from 'react';
 import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import  {SEARCH}  from '../assets/images';
-
+/**
+ * This screen component handles the searching of a city.
+ * 
+ *
+ */
 const CityPage = ({ navigation }) => {
+    /**
+   * Necessary hooks
+   */
   const [text, onChangeText] = useState('');
-
   const [cityVar, setCity] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
   console.log('called');
   useEffect(() => {
+    // Checking so that there's not an empty input.
     console.log(cityVar);
     if (!cityVar)
       return;
     async function fetchData()
     {
-
       setLoading(true);
       let response = await fetch('https://countriesnow.space/api/v0.1/countries/population/cities', {
         method: 'POST',

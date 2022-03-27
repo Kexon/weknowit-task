@@ -1,5 +1,8 @@
 import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, FlatList, Button, TouchableOpacity, ScrollView} from 'react-native';
-export default function CitiesPage({navigation, route}) {
+/**
+ * This screen component lists cities given by parameter
+ */
+export default function CitiesPage({ navigation, route }) {
     const jsonData = route.params;
     console.log(jsonData);
   return (

@@ -2,13 +2,21 @@ import React, { useState, useEffect }  from 'react';
 import { StyleSheet, View, SafeAreaView, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import  {SEARCH}  from '../assets/images';
 
+/**
+ * This screen component handles the searching of country.
+ */
 
 const CountryPage = ({ navigation }) => {
+  /**
+   * Necessary hooks
+   */
   const [text, onChangeText] = useState('');
   const [country, setCountry] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
+    // Checking so that there's not an empty input.
     if (country.text == '') {
       setErrorMessage('Please enter a country');
       console.log('No input!');
@@ -23,6 +31,7 @@ const CountryPage = ({ navigation }) => {
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
+          // We fetch the data in descending order
           body: JSON.stringify({
             limit: 11,
             order: 'dsc',
@@ -53,8 +62,8 @@ const CountryPage = ({ navigation }) => {
         style={styles.input}
         placeholder="Enter a country"
           onChangeText={newText => { onChangeText(newText); setErrorMessage('');}}
-                defaultValue={text} />
-            
+          defaultValue={text}
+        />  
             <TouchableOpacity
         style = {styles.button}
           onPress={() => setCountry({text})}>
