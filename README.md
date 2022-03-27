@@ -7,3 +7,22 @@ This is an application created for the interview process at weknowit, built usin
 
 ## Features
 * Get population data from any city or country
+
+## Setup
+### 1. Install dependencies
+
+```sh
+# Install expo
+npm install -g expo-cli
+
+# Clone the repo
+git clone https://github.com/Kexon/weknowit-task
+cd weknowit-task
+```
+
+### 2. Run
+
+```sh
+# Whilst inside project folder
+npm start
+```
