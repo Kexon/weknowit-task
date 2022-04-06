@@ -31,6 +31,7 @@ const CityPage = ({ navigation }) => {
         },
         body: JSON.stringify({
           city: cityVar.text
+        
         })
       }).finally(() => setLoading(false));
       let json = await response.json();
